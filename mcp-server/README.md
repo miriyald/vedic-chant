@@ -2,6 +2,8 @@
 
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that exposes the Vedic Chanting generation functionality as a single tool.
 
+The server is written in TypeScript and **reuses the chanting logic directly from [`../Veda.ts`](../Veda.ts)** — no logic is duplicated.
+
 ## Tool
 
 ### `generate_vedic_chant`
@@ -28,12 +30,13 @@ Transforms input text into one of the eight traditional Vedic chanting recitatio
 | `Ratha` | ratha రధ | 5 |
 | `Ghana` | ghana ఘణ | 3 |
 
-## Usage
+## Development
 
 ```bash
 cd mcp-server
 npm install
-node index.js   # communicates over stdio (MCP standard)
+npm run build   # tsc → compiles index.ts to dist/index.js
+npm start       # node dist/index.js  (communicates over stdio)
 ```
 
 ## MCP client configuration
@@ -45,7 +48,7 @@ Add the server to your MCP client (e.g. Claude Desktop `claude_desktop_config.js
   "mcpServers": {
     "vedic-chant": {
       "command": "node",
-      "args": ["/path/to/vedic-chant/mcp-server/index.js"]
+      "args": ["/path/to/vedic-chant/mcp-server/dist/index.js"]
     }
   }
 }

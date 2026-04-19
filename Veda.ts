@@ -358,16 +358,19 @@ namespace Veda.Chanting {
     }
 }
 
-var _samples: string[] =
-    [
-        "శ్రీ రామ రామ రామేతి రమే రామే మనోరమే సహస్ర నామ తత్ తుల్యం రామ నామ వరాననే",
-        "శ్రీ హేవళంబి నామ నూతన సంవత్సర శుభ అభినందనం",
-        "ī̱śā vā̱sya̍m i̱daṁ sarva̱ṃ yat kiñca jaga̍tyā̱ṃ jaga̍t",
-        "ईशा वास्यं इदं सर्वं यत्किंच जगत्यां जगत्",
-        "ఈశా వశ్యం ఇదం సర్వం  యత్ జగత్యం జగత్",
-        "ఏతా అసతన్ సుకృతస్య లోకే త విష్ణో పాహి పాహి యజ్ఞం పాహి యజ్ఞపతిం పాహి మాం యజ్ఞనిజం",
-        "ētā asatan skṛtasya lōkē ta viṣṇō pāhi pāhi yajñaṁ pāhi yajñapatiṁ pāhi māṁ yajñanijaṁ"
-    ];
-var _config: VedaConfig = { samples: _samples };
-
-new Veda.Chanting.Worker(_config);
+if (typeof window !== "undefined") {
+    var _samples: string[] =
+        [
+            "శ్రీ రామ రామ రామేతి రమే రామే మనోరమే సహస్ర నామ తత్ తుల్యం రామ నామ వరాననే",
+            "శ్రీ హేవళంబి నామ నూతన సంవత్సర శుభ అభినందనం",
+            "ī̱śā vā̱sya̍m i̱daṁ sarva̱ṃ yat kiñca jaga̍tyā̱ṃ jaga̍t",
+            "ईशा वास्यं इदं सर्वं यत्किंच जगत्यां जगत्",
+            "ఈశా వశ్యం ఇదం సర్వం  యత్ జగత్యం జగత్",
+            "ఏతా అసతన్ సుకృతస్య లోకే త విష్ణో పాహి పాహి యజ్ఞం పాహి యజ్ఞపతిం పాహి మాం యజ్ఞనిజం",
+            "ētā asatan skṛtasya lōkē ta viṣṇō pāhi pāhi yajñaṁ pāhi yajñapatiṁ pāhi māṁ yajñanijaṁ"
+        ];
+    var _config: VedaConfig = { samples: _samples };
+    new Veda.Chanting.Worker(_config);
+}
+// @ts-ignore - export for Node.js/CommonJS environments (used by the MCP server)
+if (typeof module !== "undefined" && module.exports) { module.exports = Veda; }
