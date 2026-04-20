@@ -1,0 +1,45 @@
+services:
+  # ---------------------------------------------------------------------------
+  # Web application – serves the static Vedic Chanting tool via nginx
+  #
+  #   docker compose up webapp
+  #   Open: http://localhost:8080
+  # ---------------------------------------------------------------------------
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: webapp
+    image: vedic-chant:webapp
+    ports:
+      - "8080:8080"
+
+  # ---------------------------------------------------------------------------
+  # MCP server – communicates over stdio (not HTTP).
+  #
+  # This service is defined here for documentation and CI purposes.
+  # In normal use you launch it through your MCP client, e.g.:
+  #
+  #   docker run --rm -i vedic-chant:mcp
+  #
+  # or add this to your Claude Desktop / Cursor config:
+  #
+  #   {
+  #     "mcpServers": {
+  #       "vedic-chant": {
+  #         "command": "docker",
+  #         "args": ["run", "--rm", "-i", "vedic-chant:mcp"]
+  #       }
+  #     }
+  #   }
+  # ---------------------------------------------------------------------------
+  mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: mcp
+    image: vedic-chant:mcp
+    stdin_open: true   # keep stdin open so the MCP client can write to it
+    tty: false         # MCP over stdio must NOT allocate a TTY
+    profiles:
+      - mcp            # opt-in: `docker compose --profile mcp run mcp-server`

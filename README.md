@@ -7,6 +7,59 @@
 - URL   : http://vedicchant.apphb.com/
 - Realted Links
 -- http://www.astrojyoti.com/yajurvedamp3.htm
+
+## Docker
+
+A single `Dockerfile` builds two images from one source tree — no logic is duplicated.
+
+### Web app (nginx, port 8080)
+
+```bash
+# Build
+docker build --target webapp -t vedic-chant:webapp .
+
+# Run
+docker run -p 8080:8080 vedic-chant:webapp
+# → open http://localhost:8080
+```
+
+Or with Docker Compose:
+```bash
+docker compose up webapp
+```
+
+### MCP server (stdio)
+
+The MCP server communicates over **stdin/stdout** — it is not an HTTP service.
+Launch it through your MCP client or test it manually:
+
+```bash
+# Build
+docker build --target mcp -t vedic-chant:mcp .
+
+# Test manually
+echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"1"}}}' \
+  | docker run --rm -i vedic-chant:mcp
+```
+
+**Claude Desktop / Cursor `mcpServers` config:**
+```json
+{
+  "mcpServers": {
+    "vedic-chant": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "vedic-chant:mcp"]
+    }
+  }
+}
+```
+
+### Build both images at once
+
+```bash
+docker compose build
+```
+
 ## Release Notes
 
 ### Version 0.75 Beta : 01-Apr-2017 11:19 PM EST

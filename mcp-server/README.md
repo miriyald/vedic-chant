@@ -43,6 +43,7 @@ npm start       # node dist/index.js  (communicates over stdio)
 
 Add the server to your MCP client (e.g. Claude Desktop `claude_desktop_config.json`):
 
+**Run from source (after `npm run build`):**
 ```json
 {
   "mcpServers": {
@@ -53,3 +54,19 @@ Add the server to your MCP client (e.g. Claude Desktop `claude_desktop_config.js
   }
 }
 ```
+
+**Run via Docker (no local Node.js required):**
+```json
+{
+  "mcpServers": {
+    "vedic-chant": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "vedic-chant:mcp"]
+    }
+  }
+}
+```
+
+## Docker
+
+Build and run instructions are in the root [`Dockerfile`](../Dockerfile) and [`docker-compose.yml`](../docker-compose.yml). See the [root README](../README.md#docker) for details.

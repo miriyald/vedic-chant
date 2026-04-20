@@ -1,0 +1,17 @@
+.git
+.github
+node_modules
+mcp-server/node_modules
+mcp-server/dist
+# Exclude TypeScript sources and type declarations from the build context,
+# except for the mcp-server source files needed for compilation.
+*.ts
+!mcp-server/index.ts
+!mcp-server/tsconfig.json
+!mcp-server/veda.d.ts
+Util.d.ts
+glyf.d.ts
+VedaConfig.d.ts
+xml2json.d.ts
+README.md
+docker-entrypoint.sh
